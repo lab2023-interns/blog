@@ -19,7 +19,7 @@ class Admin < ActiveRecord::Base
   validates :email, uniqueness: true
 
   # Callbacks
-  after_commit :send_login_info, :send_welcome_message, on: :create
+  after_commit :send_login_info, :send_welcome_message, :send_welcome_second_message, on: :create
   before_validation :create_password, on: :create
   after_initialize do |obj|
     obj.is_generated_password = false
@@ -50,6 +50,10 @@ class Admin < ActiveRecord::Base
 
   def send_welcome_message
     AdminMailer.welcome(self.id).deliver_later!
+  end
+
+  def send_welcome_second_message
+    AdminMailer.second_welcome(self.id).deliver_later!
   end
 
 end

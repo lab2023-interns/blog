@@ -7,9 +7,15 @@ class AdminMailer < BaseMailer
     mail(to: @admin.email, subject: @subject)
   end
 
-  def welcome admin_id
+  def welcome(admin_id)
     @admin      = Admin.find admin_id
     @subject    = t('email.admin.welcome.title')
+    mail(to: @admin.email, subject: @subject)
+  end
+
+  def second_welcome admin_id
+    @admin      = Admin.find admin_id
+    @subject    = t('email.admin.second_welcome.title')
     mail(to: @admin.email, subject: @subject)
   end
 
